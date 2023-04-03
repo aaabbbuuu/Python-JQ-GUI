@@ -10,6 +10,7 @@ The tkinter library installed. This should be included with most Python installa
 
 ## Running the tool
 To run the tool, navigate to the directory where the tool is saved and run the following command:
+** NOTE: Ensure JQ is installed under "C:\Program Files\JQ\jq.exe.exe" or update the reference in the code (Line 28)
 
 ## Using the tool
 The tool has two text fields and a "Run" button.
