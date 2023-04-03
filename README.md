@@ -19,3 +19,5 @@ In the first text field, paste the JSON input that you want to apply the JQ expr
 In the second text field, type the JQ expression that you want to apply to the JSON input. You can find more information about JQ expressions in the JQ documentation.
 
 Click the "Run" button to apply the JQ expression to the JSON input.
+
+![Screenshot of the JSON JQ Tool](jw.png)
