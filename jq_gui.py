@@ -25,7 +25,7 @@ class JQTool:
         try:
             json_input = json.loads(self.json_input.get("1.0", tk.END))
             jq_expression = self.jq_input.get()
-            result = subprocess.run(["C:\Program Files\JQ\jq.exe.exe", jq_expression], input=json.dumps(json_input), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            result = subprocess.run(["C:\Program Files\JQ\jq.exe", jq_expression], input=json.dumps(json_input), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.returncode == 0:
                 self.result_output.delete("1.0", tk.END)
                 self.result_output.insert(tk.END, result.stdout.strip())
