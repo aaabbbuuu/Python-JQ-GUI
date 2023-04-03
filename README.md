@@ -20,4 +20,4 @@ In the second text field, type the JQ expression that you want to apply to the J
 
 Click the "Run" button to apply the JQ expression to the JSON input.
 
-![Screenshot of the JSON JQ Tool](jw.png)
+![Screenshot of the JSON JQ Tool](jq.png)
