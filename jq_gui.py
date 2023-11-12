@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import scrolledtext
-import subprocess
 import json
 from tests.jq_processor_logic import JQProcessorLogic
 
@@ -44,19 +43,6 @@ class JQProcessorApp:
         except Exception as e:
             self.result_text.delete('1.0', tk.END)
             self.result_text.insert(tk.INSERT, str(e))
-
-
-    def process_json(self, json_input, jq_expr):
-        process = subprocess.Popen(['jq', jq_expr],
-                                    stdin=subprocess.PIPE,
-                                    stdout=subprocess.PIPE,
-                                    stderr=subprocess.PIPE,
-                                    text=True)
-        stdout, stderr = process.communicate(json_input)
-        if stderr:
-            raise Exception(stderr)
-        return stdout
-
 
 def main():
     root = tk.Tk()
