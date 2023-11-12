@@ -8,18 +8,13 @@ A graphical user interface for applying JQ expressions to JSON input. This tool 
 
 - Python 3.x
 - tkinter library
-- JQ installed on your system
+- JQ installed on your system (https://jqlang.github.io/jq/)
 
 ### Installation
 
 Clone the repository:
 ```bash
 git clone https://github.com/aaabbbuuu/Python-JQ-GUI.git
-```
-
-Navigate to the project directory and install dependencies:
-```bash
-# Instructions here
 ```
 
 ### Running the Tool
@@ -30,18 +25,15 @@ python jq_gui.py
 ```
 
 ### Usage
+Use: https://jqlang.github.io/jq/tutorial/ for a brief tutorial on how to use JQ
 
-Provide examples or screenshots here.
-
-## Contributing
-
-We welcome contributions! Please read our contributing guidelines to get started.
+![Screenshot of the JSON JQ Tool](jq.png)
 
 ## Running Tests
 
 To run tests, execute:
 ```bash
-# Test execution command
+python -m unittest test_jqapp
 ```
 
 ## License
@@ -50,4 +42,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For support or queries, contact [Your Contact Information].
+For support or queries, contact abu.t.hassan@gmail.com
