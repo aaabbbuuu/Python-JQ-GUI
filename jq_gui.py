@@ -2,12 +2,13 @@ import tkinter as tk
 from tkinter import scrolledtext
 import subprocess
 import json
-
+from tests.jq_processor_logic import JQProcessorLogic
 
 class JQProcessorApp:
     def __init__(self, root):
         self.root = root
         self.root.title("JQ JSON Processor")
+        self.logic = JQProcessorLogic()
         self.create_widgets()
 
     def create_widgets(self):
@@ -37,12 +38,13 @@ class JQProcessorApp:
         try:
             json_input = self.json_input_text.get('1.0', 'end-1c')
             jq_expr = self.jq_expression_entry.get()
-            result = self.process_json(json_input, jq_expr)
+            result = self.logic.process_json(json_input, jq_expr) 
             self.result_text.delete('1.0', tk.END)
             self.result_text.insert(tk.INSERT, json.dumps(json.loads(result), indent=4))
         except Exception as e:
             self.result_text.delete('1.0', tk.END)
             self.result_text.insert(tk.INSERT, str(e))
+
 
     def process_json(self, json_input, jq_expr):
         process = subprocess.Popen(['jq', jq_expr],
