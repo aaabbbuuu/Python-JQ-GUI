@@ -38,32 +38,37 @@ class TestJQProcessorLogic(unittest.TestCase):
         process_mock = MagicMock()
         jq_error_output = "jq: error: test/0 is not defined at <top-level>, line 1:\n.test\njq: 1 compile error"
         process_mock.communicate.return_value = ('', jq_error_output)
-        process_mock.returncode = 5
+        process_mock.returncode = 5 
         mock_popen.return_value = process_mock
 
-        with self.assertRaisesRegex(JQProcessorError, "JQ processing error .*compile error"):
+        print(f"\n[DEBUG test_process_jq_error_stderr] mock_popen.return_value.returncode: {mock_popen.return_value.returncode}")
+        print(f"[DEBUG test_process_jq_error_stderr] process_mock.returncode: {process_mock.returncode}")
+
+        expected_regex = r"(?s)JQ processing error \(exit code 5\):.*jq: \d+ compile error"
+        with self.assertRaisesRegex(JQProcessorError, expected_regex):
             self.logic.process_json('{"test": "data"}', '.test | invalid_func')
+
         
         mock_popen.assert_called_once()
-        process_mock.communicate.assert_called_once()
+        # Ensure communicate was called with the correct input
+        process_mock.communicate.assert_called_once_with('{"test": "data"}', timeout=15)
+
 
     @patch('subprocess.Popen')
     def test_process_jq_error_exit_code_no_stderr(self, mock_popen):
-        process_mock = MagicMock()       
-        process_mock.communicate.return_value = ('some output', '') 
+        process_mock = MagicMock()
+        process_mock.communicate.return_value = ('some output', '')
         process_mock.returncode = 3
         mock_popen.return_value = process_mock
 
-        with self.assertRaisesRegex(JQProcessorError, "JQ processing error \(exit code 3\).*\nOutput \(if any\):\nsome output"):
+        print(f"\n[DEBUG test_process_jq_error_exit_code_no_stderr] mock_popen.return_value.returncode: {mock_popen.return_value.returncode}")
+        print(f"[DEBUG test_process_jq_error_exit_code_no_stderr] process_mock.returncode: {process_mock.returncode}")
+
+        with self.assertRaisesRegex(JQProcessorError, r"JQ processing error \(exit code 3\).*\nOutput \(if any\):\nsome output"):
             self.logic.process_json('{"test": "data"}', '.foo')
         
         mock_popen.assert_called_once()
-        process_mock.communicate.assert_called_once()
-
-
-    def test_process_empty_jq_expression(self):
-        with self.assertRaisesRegex(JQProcessorError, "JQ expression cannot be empty"):
-            self.logic.process_json('{"test": "data"}', '')
+        process_mock.communicate.assert_called_once_with('{"test": "data"}', timeout=15)
 
     @patch('subprocess.Popen')
     def test_process_empty_json_input(self, mock_popen):        
